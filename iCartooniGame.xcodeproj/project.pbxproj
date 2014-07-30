@@ -1,0 +1,397 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC02B25619888DD200E1E48E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02B25519888DD200E1E48E /* main.m */; };
+		BC02B25919888DD200E1E48E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02B25819888DD200E1E48E /* AppDelegate.m */; };
+		BC02B25B19888DD200E1E48E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC02B25A19888DD200E1E48E /* Images.xcassets */; };
+		BC02B26719888DD200E1E48E /* iCartooniGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02B26619888DD200E1E48E /* iCartooniGameTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BC02B26119888DD200E1E48E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC02B24819888DD200E1E48E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC02B24F19888DD200E1E48E;
+			remoteInfo = iCartooniGame;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BC02B25019888DD200E1E48E /* iCartooniGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCartooniGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC02B25419888DD200E1E48E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC02B25519888DD200E1E48E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BC02B25719888DD200E1E48E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BC02B25819888DD200E1E48E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BC02B25A19888DD200E1E48E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BC02B26019888DD200E1E48E /* iCartooniGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCartooniGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC02B26519888DD200E1E48E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC02B26619888DD200E1E48E /* iCartooniGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCartooniGameTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC02B24D19888DD200E1E48E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC02B25D19888DD200E1E48E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC02B24719888DD200E1E48E = {
+			isa = PBXGroup;
+			children = (
+				BC02B25219888DD200E1E48E /* iCartooniGame */,
+				BC02B26319888DD200E1E48E /* iCartooniGameTests */,
+				BC02B25119888DD200E1E48E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC02B25119888DD200E1E48E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC02B25019888DD200E1E48E /* iCartooniGame.app */,
+				BC02B26019888DD200E1E48E /* iCartooniGameTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC02B25219888DD200E1E48E /* iCartooniGame */ = {
+			isa = PBXGroup;
+			children = (
+				BC02B25719888DD200E1E48E /* AppDelegate.h */,
+				BC02B25819888DD200E1E48E /* AppDelegate.m */,
+				BC02B25A19888DD200E1E48E /* Images.xcassets */,
+				BC02B25319888DD200E1E48E /* Supporting Files */,
+			);
+			path = iCartooniGame;
+			sourceTree = "<group>";
+		};
+		BC02B25319888DD200E1E48E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC02B25419888DD200E1E48E /* Info.plist */,
+				BC02B25519888DD200E1E48E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BC02B26319888DD200E1E48E /* iCartooniGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				BC02B26619888DD200E1E48E /* iCartooniGameTests.m */,
+				BC02B26419888DD200E1E48E /* Supporting Files */,
+			);
+			path = iCartooniGameTests;
+			sourceTree = "<group>";
+		};
+		BC02B26419888DD200E1E48E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC02B26519888DD200E1E48E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC02B24F19888DD200E1E48E /* iCartooniGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC02B26A19888DD200E1E48E /* Build configuration list for PBXNativeTarget "iCartooniGame" */;
+			buildPhases = (
+				BC02B24C19888DD200E1E48E /* Sources */,
+				BC02B24D19888DD200E1E48E /* Frameworks */,
+				BC02B24E19888DD200E1E48E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iCartooniGame;
+			productName = iCartooniGame;
+			productReference = BC02B25019888DD200E1E48E /* iCartooniGame.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BC02B25F19888DD200E1E48E /* iCartooniGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC02B26D19888DD200E1E48E /* Build configuration list for PBXNativeTarget "iCartooniGameTests" */;
+			buildPhases = (
+				BC02B25C19888DD200E1E48E /* Sources */,
+				BC02B25D19888DD200E1E48E /* Frameworks */,
+				BC02B25E19888DD200E1E48E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC02B26219888DD200E1E48E /* PBXTargetDependency */,
+			);
+			name = iCartooniGameTests;
+			productName = iCartooniGameTests;
+			productReference = BC02B26019888DD200E1E48E /* iCartooniGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC02B24819888DD200E1E48E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = michaelalei;
+				TargetAttributes = {
+					BC02B24F19888DD200E1E48E = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					BC02B25F19888DD200E1E48E = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = BC02B24F19888DD200E1E48E;
+					};
+				};
+			};
+			buildConfigurationList = BC02B24B19888DD200E1E48E /* Build configuration list for PBXProject "iCartooniGame" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BC02B24719888DD200E1E48E;
+			productRefGroup = BC02B25119888DD200E1E48E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BC02B24F19888DD200E1E48E /* iCartooniGame */,
+				BC02B25F19888DD200E1E48E /* iCartooniGameTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC02B24E19888DD200E1E48E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC02B25B19888DD200E1E48E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC02B25E19888DD200E1E48E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC02B24C19888DD200E1E48E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC02B25919888DD200E1E48E /* AppDelegate.m in Sources */,
+				BC02B25619888DD200E1E48E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC02B25C19888DD200E1E48E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC02B26719888DD200E1E48E /* iCartooniGameTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC02B26219888DD200E1E48E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC02B24F19888DD200E1E48E /* iCartooniGame */;
+			targetProxy = BC02B26119888DD200E1E48E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BC02B26819888DD200E1E48E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BC02B26919888DD200E1E48E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BC02B26B19888DD200E1E48E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = iCartooniGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BC02B26C19888DD200E1E48E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = iCartooniGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		BC02B26E19888DD200E1E48E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iCartooniGame.app/iCartooniGame";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = iCartooniGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		BC02B26F19888DD200E1E48E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iCartooniGame.app/iCartooniGame";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = iCartooniGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC02B24B19888DD200E1E48E /* Build configuration list for PBXProject "iCartooniGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC02B26819888DD200E1E48E /* Debug */,
+				BC02B26919888DD200E1E48E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC02B26A19888DD200E1E48E /* Build configuration list for PBXNativeTarget "iCartooniGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC02B26B19888DD200E1E48E /* Debug */,
+				BC02B26C19888DD200E1E48E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BC02B26D19888DD200E1E48E /* Build configuration list for PBXNativeTarget "iCartooniGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC02B26E19888DD200E1E48E /* Debug */,
+				BC02B26F19888DD200E1E48E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC02B24819888DD200E1E48E /* Project object */;
+}
