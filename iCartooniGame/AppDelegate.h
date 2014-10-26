@@ -10,6 +10,11 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+//是否登录
+@property (assign,nonatomic)  BOOL isLogin ;
+//是否是管理员
+@property (assign,nonatomic)  BOOL isMaster ;
+
 @property (strong, nonatomic) UIWindow *window;
 
 

@@ -9,17 +9,50 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-            
 
 @end
 
 @implementation AppDelegate
-            
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+-(void) createRootVC
+{
+    NSArray* arrayClassName = [NSArray arrayWithObjects:@"VCCategory"/*,@"VCRecomendArt",@"VCDiscovery"*/,@"VCMe", nil] ;
+    
+    NSMutableArray* arrayVC = [[NSMutableArray alloc] init];
+    for (NSString* strCName in arrayClassName)
+    {
+        Class VC = NSClassFromString(strCName);
+        
+        UIViewController* vc = [[VC alloc] init] ;
+        
+        UINavigationController* navBase = [[UINavigationController alloc] initWithRootViewController:vc] ;
+        
+        [arrayVC addObject:navBase] ;
+    }
+    
+    UITabBarController* tabVC = [[UITabBarController alloc] init] ;
+    //tabVC.tabBar.translucent = NO ;
+    tabVC.viewControllers = arrayVC ;
+    
+    self.window.rootViewController = tabVC ;
+    
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+
+    [self createRootVC] ;
+    
+    self.isLogin = NO ;
+    self.isMaster = NO;
+    
     self.window.backgroundColor = [UIColor whiteColor];
+    
+//    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
+//    [ud setObject:[NSNumber numberWithBool:FALSE] forKey:@"isFirstPostTopic"];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
