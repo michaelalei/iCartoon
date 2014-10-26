@@ -360,10 +360,11 @@
 {
     VCPostWarn* vc = [[VCPostWarn alloc] init] ;
     
-    UITableViewCell* cell = (UITableViewCell*)btn.superview.superview ;
+    UITableViewCell* cell = (UITableViewCell*)(btn.superview.superview.superview) ;
     
     NSIndexPath* path = [_tableView indexPathForCell:cell] ;
     
+    NSLog(@"index = %ld",path.row) ;
     PictureListModel* model = [_arrayData objectAtIndex:path.row] ;
     
     vc.mImage = model.mImage ;
