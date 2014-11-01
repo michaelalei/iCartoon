@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7CA9C1391A00E1BC00EDA651 /* LeoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9C1381A00E1BC00EDA651 /* LeoLoadingView.m */; };
+		7CA9C13C1A0116AD00EDA651 /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9C13B1A0116AD00EDA651 /* VCSetting.m */; };
 		BC02B25619888DD200E1E48E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02B25519888DD200E1E48E /* main.m */; };
 		BC02B25919888DD200E1E48E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02B25819888DD200E1E48E /* AppDelegate.m */; };
 		BC02B25B19888DD200E1E48E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC02B25A19888DD200E1E48E /* Images.xcassets */; };
@@ -137,6 +139,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7CA9C1371A00E1BC00EDA651 /* LeoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeoLoadingView.h; sourceTree = "<group>"; };
+		7CA9C1381A00E1BC00EDA651 /* LeoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeoLoadingView.m; sourceTree = "<group>"; };
+		7CA9C13A1A0116AD00EDA651 /* VCSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSetting.h; sourceTree = "<group>"; };
+		7CA9C13B1A0116AD00EDA651 /* VCSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSetting.m; sourceTree = "<group>"; };
 		BC02B25019888DD200E1E48E /* iCartooniGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCartooniGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC02B25419888DD200E1E48E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC02B25519888DD200E1E48E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -258,6 +264,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7CA9C1361A00E1BC00EDA651 /* LoadingTipView */ = {
+			isa = PBXGroup;
+			children = (
+				7CA9C1371A00E1BC00EDA651 /* LeoLoadingView.h */,
+				7CA9C1381A00E1BC00EDA651 /* LeoLoadingView.m */,
+			);
+			path = LoadingTipView;
+			sourceTree = "<group>";
+		};
 		BC02B24719888DD200E1E48E = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +342,7 @@
 		BC0DD67919C98BB000CC77F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7CA9C1361A00E1BC00EDA651 /* LoadingTipView */,
 				BC0DD67A19C98BB000CC77F9 /* CommentCell.h */,
 				BC0DD6CF19C9913600CC77F9 /* CheckBox.h */,
 				BC0DD6D019C9913600CC77F9 /* CheckBox.m */,
@@ -365,6 +381,8 @@
 				BC0DD6AE19C98C7200CC77F9 /* VCDiscovery.m */,
 				BC0DD6AF19C98C7200CC77F9 /* VCMe.h */,
 				BC0DD6B019C98C7200CC77F9 /* VCMe.m */,
+				7CA9C13A1A0116AD00EDA651 /* VCSetting.h */,
+				7CA9C13B1A0116AD00EDA651 /* VCSetting.m */,
 				BC0DD6B119C98C7200CC77F9 /* VCMore.h */,
 				BC0DD6B219C98C7200CC77F9 /* VCMore.m */,
 				BC0DD6B319C98C7200CC77F9 /* VCPictureList.h */,
@@ -609,6 +627,7 @@
 				BC0DD6BE19C98C7200CC77F9 /* VCMe.m in Sources */,
 				D5D53D6019C5D652001307B6 /* MyImageDownload.m in Sources */,
 				D5D59E1419C5990700D7AA43 /* ASIDataDecompressor.m in Sources */,
+				7CA9C1391A00E1BC00EDA651 /* LeoLoadingView.m in Sources */,
 				D5D59E1B19C5990700D7AA43 /* Reachability.m in Sources */,
 				BC0DD68C19C98BB000CC77F9 /* TopicImageCell.m in Sources */,
 				D5D59E1919C5990700D7AA43 /* ASINetworkQueue.m in Sources */,
@@ -617,6 +636,7 @@
 				BC0DD6C019C98C7200CC77F9 /* VCPictureList.m in Sources */,
 				BC0DD6C319C98C7200CC77F9 /* VCTopicPictureComment.m in Sources */,
 				BC0DD6CD19C990F600CC77F9 /* VCRegister.m in Sources */,
+				7CA9C13C1A0116AD00EDA651 /* VCSetting.m in Sources */,
 				D5D59E1519C5990700D7AA43 /* ASIDownloadCache.m in Sources */,
 				D54C137E19DD88E300A4077D /* VCShowSingleImage.m in Sources */,
 				D5D59E1319C5990700D7AA43 /* ASIDataCompressor.m in Sources */,
@@ -788,10 +808,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iCartooniGame/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -806,7 +826,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iCartooniGame/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
