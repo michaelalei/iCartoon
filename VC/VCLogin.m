@@ -11,6 +11,7 @@
 #import "AppCONST.h"
 #import "AppDelegate.h"
 #import "ASIHTTPRequest.h"
+#import "Reachability.h"
 
 #define LoginURL @"http://121.40.93.230/appCATM/login.php?userName=%@&password=%@"
 
@@ -95,10 +96,25 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(BOOL) checkNetworkIsOK
+{
+    if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kNotReachable)
+    {
+        UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络好像有点问题哦!\n请确认网络正常后再试." delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+        
+        [alv show] ;
+        
+        return NO ;
+    }
+    return YES ;
+}
 
 - (IBAction)pressLogin:(id)sender
 {
+    
+    if ([self checkNetworkIsOK] == NO) {
+        return ;
+    }
     
     if (_mTFUserName.text.length == 0 || _mTFPassword.text.length == 0) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"用户名或密码不能为空!" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;

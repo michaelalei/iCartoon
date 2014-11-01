@@ -10,6 +10,7 @@
 #import "VCLogin.h"
 #import "AppDelegate.h"
 #import "AppCONST.h"
+#import "VCSetting.h"
 
 @interface VCMe ()
 
@@ -42,10 +43,16 @@
 
 }
 
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
+
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -58,18 +65,23 @@
         cell.selectionStyle  = UITableViewCellSelectionStyleNone ;
     }
     
-    
-    AppDelegate* de = GetAppDelegate() ;
-    
-    if (de.isLogin == YES)
+    if(indexPath.section == 0)
     {
-        cell.textLabel.text =  @"退出登录";
+        AppDelegate* de = GetAppDelegate() ;
+        
+        if (de.isLogin == YES)
+        {
+            cell.textLabel.text =  @"退出登录";
+        }
+        else
+        {
+            cell.textLabel.text = @"登录";
+        }
     }
-    else
+    else if(indexPath.section ==1)
     {
-        cell.textLabel.text = @"登录";
+        cell.textLabel.text = @"设置" ;
     }
-    
     
     return cell ;
 }
@@ -82,7 +94,7 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //点击登录按钮
-    if (indexPath.row == 0)
+    if (indexPath.section== 0)
     {
         //退出登录画面
             AppDelegate* de = GetAppDelegate() ;
@@ -99,6 +111,13 @@
             [self presentViewController:login animated:YES completion:nil] ;
         }
     }
+    else if (indexPath.section ==1)
+    {
+        VCSetting* vc = [[VCSetting alloc] init] ;
+        
+        [self.navigationController pushViewController:vc animated:YES] ;
+    }
+    
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

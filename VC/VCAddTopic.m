@@ -12,6 +12,8 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "VCPictureList.h"
+#import "Reachability.h"
+
 
 @interface VCAddTopic ()
 
@@ -66,6 +68,7 @@
     [btnBack setTitle:@"返回" forState:UIControlStateNormal] ;
     [btnBack addTarget:self action:@selector(pressBack) forControlEvents:UIControlEventTouchUpInside] ;
     
+    btnBack.tag = 3001 ;
     [self.view addSubview:btnBack] ;
     
     _btnSend = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
@@ -115,6 +118,12 @@
     }
     [_mSV addSubview:iView] ;
     //[self saveImage:_mMainImage] ;
+    
+    
+    CGRect sFrame = [UIScreen mainScreen].bounds ;
+    
+    _mLoadingView = [[LeoLoadingView alloc] initWithFrame:CGRectMake(sFrame.size.width/2-40, sFrame.size.height/2-40, 80, 80)] ;
+    [self.view addSubview:_mLoadingView] ;
 }
 
 -(void) textFieldDidBeginEditing:(UITextField *)textField
@@ -137,9 +146,38 @@
     [_mTFTopicTitle resignFirstResponder] ;
 }
 
--(void) pressSend
+//选择手机使用网路情况
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
+    if (buttonIndex == 0)
+    {
+        NSLog(@"111");
+        
+        [self uploadTopicToServer] ;
+        [ud setObject:@"NO" forKey:@"OnlyWifiPost"] ;
+    }
+    else if (buttonIndex == 1)
+    {
+
+        
+        [ud setObject:@"YES" forKey:@"OnlyWifiPost"] ;
+    }
+}
+
+-(void) uploadTopicToServer
+{
+    self.view.alpha = 0.5 ;
+    
+    [_mTFTopicTitle resignFirstResponder] ;
+    
     _btnSend.enabled = NO ;
+    
+    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
+    
+    btnBack.enabled = NO ;
+    
+    [_mLoadingView showView:YES] ;
     
     float wRatio = _mMainImage.size.width /640 ;
     
@@ -184,11 +222,57 @@
         {
             [_mPC.arrayRequest addObject:request] ;
         }
-
+        
         [request setDelegate:self] ;
         //开始启动连接
         [request startAsynchronous] ;
     }
+}
+
+-(void) pressSend
+{
+    
+    if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kNotReachable)
+    {
+        UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络好像有点问题哦!\n请确认网络正常后再试." delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+        
+        [alv show] ;
+        
+        return ;
+    }
+    else
+    {
+        if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kReachableViaWiFi)
+        {
+            [self uploadTopicToServer] ;
+        }
+        else if ([ASIHTTPRequest isNetworkReachableViaWWAN] == YES)
+        {
+            NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
+            
+            NSString* strID = [ud objectForKey:@"OnlyWifiPost"] ;
+            
+            if ([strID isEqualToString:@"YES"])
+            {
+                 UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您现在的网络网络不是通过wifi连接的.\n当前设置只能通过wifi网络上传作品!\n您可以通过我的->设置 更改网络设置." delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+                [alv show] ;
+            }
+            else
+            {
+                if (strID == nil)
+                {
+                    UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您正在使用的是手机的网络,可能回产生较大流量,根据你上传的图片大小计算,平均在150k每张图片.\n您想继续使用手机流量上传图片,\n点击确认按钮.\n只在wifi可用时发布,选择使用wifi." delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"只使用wifi", nil] ;
+                    
+                    [alv show] ;
+                }
+                else
+                {
+                    [self uploadTopicToServer] ;
+                }
+            }
+        }
+    }
+
 
 }
 
@@ -200,24 +284,41 @@
 -(void) requestFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"failed !");
+    
+    NSLog(@"dicFailed = %@",request.responseStatusMessage) ;
+    
+    UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"由于网络问题，发表作品失败!\n请确认网络正常后重新发送!" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+    
+    [alv show] ;
+    
+    self.view.alpha = 1.0;
+    _btnSend.enabled = YES ;
+    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
+    
+    btnBack.enabled = YES ;
+    
+    [_mLoadingView showView:NO] ;
 }
 
 -(void) requestFinished:(ASIHTTPRequest *)request
 {
     NSLog(@"asi finished!") ;
     
+    if (_mPC) {
+        _mPC.mIsNeedUpdate = YES ;
+    }
+
     NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableContainers error:nil] ;
     
     NSLog(@"dic = %@",dic) ;
+
     
-    if (_mPC )
-    {
-        //VCPictureList* pc = (VCPictureList*)self.parentViewController ;
-        
-        [_mPC loadDataFromServer] ;
-    }
-    
+    self.view.alpha = 1.0;
+    [_mLoadingView showView:NO] ;
     _btnSend.enabled = YES ;
+    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
+    btnBack.enabled = YES ;
+
     //可以在此做数据缓存
     [self dismissViewControllerAnimated:YES completion:nil];
 

@@ -10,6 +10,7 @@
 #import "NetDownload.h"
 #import "MyImageDownload.h"
 #import "VCAddTopic.h"
+#import "ASIDownloadCache.h"
 
 @interface VCPictureList : UIViewController<
 UITableViewDelegate,
@@ -35,9 +36,14 @@ ASIHTTPRequestDelegate>
 @property (retain,nonatomic) NSMutableArray* arrayData ;
 @property (retain,nonatomic) NSMutableArray* arrayNetDownlaod ;
 @property (retain,nonatomic) NSMutableArray* arrayImageDownload ;
+
+@property (nonatomic,retain) ASIDownloadCache *myCache;
 //分类索引
 @property (assign,nonatomic) NSUInteger      categoryID ;
 
+@property (assign,nonatomic) BOOL            mIsNeedUpdate ;
+
 -(void)  loadDataFromServer ;
+-(void)  refreshUI ;
 
 @end

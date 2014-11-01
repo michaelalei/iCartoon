@@ -26,6 +26,7 @@
         NSString* path = [[NSBundle mainBundle] pathForResource:@"Category" ofType:@"plist"] ;
         
         _arrayData = [[NSMutableArray alloc] initWithContentsOfFile:path] ;
+        
     }
     return self;
 }
@@ -48,16 +49,15 @@
     
     [self.view addSubview:_tableView] ;
     
-
-    VCPictureList* pList = [[VCPictureList alloc] init] ;
+    _mPictureList = [[VCPictureList alloc] init] ;
     NSDictionary* dic = [_arrayData objectAtIndex:0] ;
     NSString* strTitle = [dic objectForKey:@"group"] ;
     //pList.title = @"2D人物";
-    pList.title = strTitle ;
-    pList.categoryID = 0 ;
+    _mPictureList.title = strTitle ;
+    _mPictureList.categoryID = 0 ;
     
-    pList.view.backgroundColor = [UIColor blueColor];
-    [self.navigationController pushViewController:pList animated:YES] ;
+    _mPictureList.view.backgroundColor = [UIColor blueColor];
+    [self.navigationController pushViewController:_mPictureList animated:YES] ;
     
 }
 
@@ -104,9 +104,10 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _mPictureList = [[VCPictureList alloc] init] ;
 
-    //[_mPictureList.arrayData removeAllObjects] ;
+    _mPictureList.mIsNeedUpdate = YES ;
+    _mPictureList.categoryID = 0 ;
+    [_mPictureList refreshUI] ;
     
     NSDictionary* dic = [_arrayData objectAtIndex:indexPath.section] ;
    // NSString* strTitle = [dic objectForKey:@"group"] ;
@@ -133,7 +134,7 @@
         }
         _mPictureList.categoryID += indexPath.row ;
     }
-        
+    
     _mPictureList.title = strValue ;
 
     NSLog(@"categoryID = %lu",_mPictureList.categoryID) ;

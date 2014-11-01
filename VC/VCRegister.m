@@ -9,6 +9,7 @@
 #import "VCRegister.h"
 #import "AppDelegate.h"
 #import "AppCONST.h"
+#import "Reachability.h"
 
 #define RegisterURL @"http://121.40.93.230/appCATM/register.php?userName=%@&password=%@"
 
@@ -40,6 +41,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL) checkNetworkIsOK
+{
+    if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kNotReachable)
+    {
+        UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络好像有点问题哦!\n请确认网络正常后再试." delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+        
+        [alv show] ;
+        
+        return NO ;
+    }
+    return YES ;
+}
+
 /*
  #pragma mark - Navigation
  
@@ -52,6 +66,10 @@
  */
 
 - (IBAction)pressRegister:(id)sender {
+    
+    if ([self checkNetworkIsOK] == NO) {
+        return ;
+    }
     
     NSString* uName = _mTFUesrName.text ;
     NSString* password = _mTFPassword.text ;

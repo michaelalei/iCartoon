@@ -10,6 +10,7 @@
 
 #import "ASIHTTPRequestDelegate.h"
 #import "ASIFormDataRequest.h"
+#import "LeoLoadingView.h"
 
 
 @class VCPictureList ;
@@ -18,7 +19,8 @@
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 UITextFieldDelegate,
-ASIHTTPRequestDelegate>
+ASIHTTPRequestDelegate,
+UIAlertViewDelegate>
 {
     UIButton* _btnSend ;
 }
@@ -28,5 +30,7 @@ ASIHTTPRequestDelegate>
 @property (retain,nonatomic) UIScrollView* mSV ;
 @property (assign,nonatomic) NSUInteger    mCategoryID ;
 @property (retain,nonatomic) VCPictureList* mPC ;
+
+@property (retain,nonatomic) LeoLoadingView* mLoadingView ;
 
 @end

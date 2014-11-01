@@ -10,8 +10,8 @@
 #define iCartooniGame_AppCONST_h
 
 #define GetAppDelegate()  (AppDelegate*)[UIApplication sharedApplication].delegate ;
-#define TopicBigImageJPGScale   0.8
-#define TopicSmallImageJPGScale 0.5
+#define TopicBigImageJPGScale   0.3
+#define TopicSmallImageJPGScale 0.3
 
 #define FirstLoadImageVC @"isFirstUploadImage"
 

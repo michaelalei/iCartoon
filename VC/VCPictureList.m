@@ -20,6 +20,8 @@
 #import "ASIHTTPRequest.h"
 #import "VCShowSingleImage.h"
 #import "VCPostWarn.h"
+#import "Reachability.h"
+#import "ASIDownloadCache.h"
 
 @interface VCPictureList ()
 
@@ -36,19 +38,29 @@
     return self;
 }
 
+-(void)  refreshUI
+{
+    [_tableView scrollRectToVisible:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) animated:NO] ;
+    //[_arrayData removeAllObjects] ;
+    //[_tableView reloadData] ;
+}
+
 -(void) loadDataFromServer
 {
+    
+   // NSLog(@"category = %d",_categoryID) ;
+    
     NSString* strURL = [NSString stringWithFormat:@"http://121.40.93.230/appCATM/getLatestTopics.php?cat=%lu&number=30",(unsigned long)_categoryID] ;
-    
+
     ASIHTTPRequest* request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
+    //[request setDownloadCache:self.myCache];
     
-    [request setRequestMethod:@"GET"] ;
+    //[request setRequestMethod:@"GET"] ;
     
     request.delegate = self ;
     
     request.tag = 1001 ;
     
-    [request setCachePolicy:ASIUseDefaultCachePolicy] ;
     [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     
     [request startAsynchronous] ;
@@ -97,13 +109,13 @@
     
     if (arrayT.count != 0)
     {
-        NSDictionary* dicTopic = [arrayT objectAtIndex:arrayT.count-1] ;
+        NSDictionary* dicTopic = [arrayT objectAtIndex:0] ;
         
         NSUInteger temp = [[dicTopic objectForKey:@"id"] integerValue];
         
-        if (temp == _topicLastID) {
-            return;
-        }
+//        if (temp == _topicLastID) {
+//            return;
+//        }
     }
 
     //更新数据
@@ -164,7 +176,7 @@
     // Do any additional setup after loading the view.
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = NO ;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.bounds.size.height) style:UITableViewStylePlain] ;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain] ;
     
     _tableView.delegate = self ;
     _tableView.dataSource = self ;
@@ -193,7 +205,24 @@
     _arrayNetDownlaod = [[NSMutableArray alloc] init] ;
     _arrayImageDownload = [[NSMutableArray alloc] init] ;
     
-    [self loadDataFromServer];
+    ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
+    self.myCache = cache;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    [self.myCache setStoragePath:[documentDirectory stringByAppendingPathComponent:@"resource"]];
+    [self.myCache setDefaultCachePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy|ASIFallbackToCacheIfLoadFailsCachePolicy];
+    //[self.myCache clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    
+    _mIsNeedUpdate = YES ;
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    if (_mIsNeedUpdate == YES)
+    {
+        [self loadDataFromServer] ;
+        _mIsNeedUpdate = NO ;
+    }
 }
 
 -(void) dealloc
@@ -269,6 +298,7 @@
 
 -(void) pressUpdate
 {
+    NSLog(@"press 更新！");
     [self loadDataFromServer] ;
 }
 

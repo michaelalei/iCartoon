@@ -50,8 +50,10 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-//    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
-//    [ud setObject:[NSNumber numberWithBool:FALSE] forKey:@"isFirstPostTopic"];
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
+    [ud removeObjectForKey:@"OnlyWifiPost"];
+    
+    
     
     [self.window makeKeyAndVisible];
     return YES;

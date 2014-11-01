@@ -16,6 +16,7 @@
 }
 
 @property (retain,nonatomic) NSMutableArray* arrayData ;
+@property (retain,nonatomic) NSMutableArray* arrayVCPicture ;
 
 
 @end
