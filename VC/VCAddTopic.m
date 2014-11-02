@@ -43,128 +43,6 @@
     }
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    int wHeight = [UIScreen mainScreen].bounds.size.height ;
-    
-    _mSV = [[UIScrollView alloc] init] ;
-    _mSV.frame = CGRectMake(3, 102, 314, wHeight-105) ;
-    _mSV.contentSize = CGSizeMake(320, wHeight-115);
-    _mSV.userInteractionEnabled = YES ;
-    
-    UITapGestureRecognizer* tapOne = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOneSV:)] ;
-    [_mSV addGestureRecognizer:tapOne] ;
-    
-    _mSV.backgroundColor = [UIColor whiteColor] ;
-    [self.view addSubview:_mSV] ;
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    // Do any additional setup after loading the view.
-    UIButton* btnBack = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
-    
-    btnBack.frame = CGRectMake(0, 20, 50, 40) ;
-    [btnBack setTitle:@"返回" forState:UIControlStateNormal] ;
-    [btnBack addTarget:self action:@selector(pressBack) forControlEvents:UIControlEventTouchUpInside] ;
-    
-    btnBack.tag = 3001 ;
-    [self.view addSubview:btnBack] ;
-    
-    _btnSend = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
-    
-    _btnSend.frame = CGRectMake(260, 20, 60, 40) ;
-    [_btnSend setTitle:@"发送" forState:UIControlStateNormal] ;
-    [_btnSend addTarget:self action:@selector(pressSend) forControlEvents:UIControlEventTouchUpInside] ;
-    
-    [self.view addSubview:_btnSend] ;
-    
-    _mTFTopicTitle = [[UITextField alloc] init] ;
-    _mTFTopicTitle.frame = CGRectMake(5, 55, 310, 40) ;
-    _mTFTopicTitle.placeholder = @"此刻的对作品的心情,评价......";
-    _mTFTopicTitle.borderStyle = UITextBorderStyleRoundedRect ;
-    [self.view addSubview:_mTFTopicTitle] ;
-    _mTFTopicTitle.delegate = self ;
-    
-    _mBtnAdd = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
-    
-    _mBtnAdd.frame = CGRectMake(250, 200, 60, 40) ;
-    [_mBtnAdd setTitle:@"添加作品" forState:UIControlStateNormal] ;
-    [_mBtnAdd addTarget:self action:@selector(pressAdd) forControlEvents:UIControlEventTouchUpInside] ;
-    _mBtnAdd.hidden = YES ;
-    [_mSV addSubview:_mBtnAdd] ;
-    
-    UIImageView* iView = [[UIImageView alloc] init] ;
-    
-    CGSize sizeImage  ;
-    
-    float fRatio = _mMainImage.size.width / 600 ;
-    
-    sizeImage.width = _mMainImage.size.width / fRatio ;
-    sizeImage.height = _mMainImage.size.height / fRatio ;
-    
-    iView.frame = CGRectMake(7, 5, sizeImage.width/2, sizeImage.height/2) ;
-    iView.image = _mMainImage ;
-    iView.tag = 101 ;
-
-    _mSV.backgroundColor = [UIColor blackColor] ;
-    
-    _mSV.contentSize = CGSizeMake(314, sizeImage.height/2+10) ;
-    
-    if (sizeImage.height/2+10<_mSV.frame.size.height)
-    {
-        _mSV.frame = CGRectMake(3, 102, 314, sizeImage.height/2+10+40) ;
-        iView.frame = CGRectMake(7, 5+20, sizeImage.width/2, sizeImage.height/2) ;
-    }
-    [_mSV addSubview:iView] ;
-    //[self saveImage:_mMainImage] ;
-    
-    
-    CGRect sFrame = [UIScreen mainScreen].bounds ;
-    
-    _mLoadingView = [[LeoLoadingView alloc] initWithFrame:CGRectMake(sFrame.size.width/2-40, sFrame.size.height/2-40, 80, 80)] ;
-    [self.view addSubview:_mLoadingView] ;
-}
-
--(void) textFieldDidBeginEditing:(UITextField *)textField
-{
-    _mSV.scrollEnabled = NO ;
-}
-
--(void) textFieldDidEndEditing:(UITextField *)textField
-{
-    _mSV.scrollEnabled = YES ;
-}
-
--(void) tapOneSV:(UIGestureRecognizer*) tapOne
-{
-    [_mTFTopicTitle resignFirstResponder] ;
-}
-
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_mTFTopicTitle resignFirstResponder] ;
-}
-
-//选择手机使用网路情况
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
-    if (buttonIndex == 0)
-    {
-        NSLog(@"111");
-        
-        [self uploadTopicToServer] ;
-        [ud setObject:@"NO" forKey:@"OnlyWifiPost"] ;
-    }
-    else if (buttonIndex == 1)
-    {
-
-        
-        [ud setObject:@"YES" forKey:@"OnlyWifiPost"] ;
-    }
-}
-
 -(void) uploadTopicToServer
 {
     self.view.alpha = 0.5 ;
@@ -229,6 +107,220 @@
     }
 }
 
+-(void) loadBadDataFromServer
+{
+    NSString* strURL = [NSString stringWithFormat:@"http://121.40.93.230/appCATM/getLatestTopics.php?cat=%d&number=%d",0,1] ;
+    
+    ASIHTTPRequest* request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
+    
+    [request setRequestMethod:@"GET"] ;
+    
+    request.delegate = self ;
+    
+    request.tag = 9001 ;
+    
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    
+    [request startAsynchronous] ;
+}
+
+-(void) startRequestDeleteBadData
+{
+    NSString* strURL = [NSString stringWithFormat:@"http://121.40.93.230/appCATM/deleteTopic.php?deleteTopicID=%@",_mCurDeleteID] ;
+    
+    ASIHTTPRequest* request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
+    
+    [request setRequestMethod:@"GET"] ;
+    
+    request.delegate = self ;
+    
+    request.tag = 8001 ;
+    
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    
+    [request startAsynchronous] ;
+}
+
+-(void) requestStarted:(ASIHTTPRequest *)request
+{
+    NSLog(@"asi start!") ;
+}
+
+-(void) requestFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"asi failed !");
+
+    if (request.tag != 9001)
+    {
+        [self loadBadDataFromServer];
+    }
+    else
+    {
+        NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableContainers error:nil] ;
+        NSArray* arrayT = [dic objectForKey:@"topics"] ;
+        
+        if (arrayT.count != 0)
+        {
+            NSDictionary* dicTopic = arrayT[0] ;
+            NSString* imagePath = [dicTopic objectForKey:@"imagepath"] ;
+            NSString* mID = [dicTopic objectForKey:@"id"] ;
+            
+            _mCurDeleteID = mID ;
+            if (imagePath==nil || [imagePath isEqualToString:@""])
+            {
+                [self startRequestDeleteBadData] ;
+            }
+
+        }
+        return ;
+
+    }
+    
+    UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"由于网络问题，发表作品失败!\n请确认网络正常后重新发送!" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+    
+    [alv show] ;
+    
+    self.view.alpha = 1.0;
+    _btnSend.enabled = YES ;
+    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
+    
+    btnBack.enabled = YES ;
+    
+    [_mLoadingView showView:NO] ;
+}
+
+-(void) requestFinished:(ASIHTTPRequest *)request
+{
+    NSLog(@"asi finished!") ;
+ 
+    if (request.tag == 9001) {
+        NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableContainers error:nil] ;
+        NSArray* arrayT = [dic objectForKey:@"topics"] ;
+        
+        if (arrayT.count != 0)
+        {
+            NSDictionary* dicTopic = arrayT[0] ;
+            NSString* imagePath = [dicTopic objectForKey:@"imagepath"] ;
+            NSString* mID = [dicTopic objectForKey:@"id"] ;
+            
+            _mCurDeleteID = mID ;
+            if (imagePath==nil || [imagePath isEqualToString:@""])
+            {
+                [self startRequestDeleteBadData] ;
+            }
+            
+        }
+        return ;
+    }
+    else if (request.tag == 8001)
+    {
+        NSLog(@"delete OK!");
+        return ;
+    }
+    if (_mPC) {
+        _mPC.mIsNeedUpdate = YES ;
+    }
+
+    NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableContainers error:nil] ;
+    
+    NSLog(@"dic = %@",dic) ;
+
+    
+    self.view.alpha = 1.0;
+    [_mLoadingView showView:NO] ;
+    _btnSend.enabled = YES ;
+    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
+    btnBack.enabled = YES ;
+
+    //可以在此做数据缓存
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    int wHeight = [UIScreen mainScreen].bounds.size.height ;
+    
+    _mSV = [[UIScrollView alloc] init] ;
+    _mSV.frame = CGRectMake(3, 102, 314, wHeight-105) ;
+    _mSV.contentSize = CGSizeMake(320, wHeight-115);
+    _mSV.userInteractionEnabled = YES ;
+    
+    UITapGestureRecognizer* tapOne = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOneSV:)] ;
+    [_mSV addGestureRecognizer:tapOne] ;
+    
+    _mSV.backgroundColor = [UIColor whiteColor] ;
+    [self.view addSubview:_mSV] ;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    // Do any additional setup after loading the view.
+    UIButton* btnBack = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
+    
+    btnBack.frame = CGRectMake(0, 20, 50, 40) ;
+    [btnBack setTitle:@"返回" forState:UIControlStateNormal] ;
+    [btnBack addTarget:self action:@selector(pressBack) forControlEvents:UIControlEventTouchUpInside] ;
+    
+    btnBack.tag = 3001 ;
+    [self.view addSubview:btnBack] ;
+    
+    _btnSend = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
+    
+    _btnSend.frame = CGRectMake(260, 20, 60, 40) ;
+    [_btnSend setTitle:@"发送" forState:UIControlStateNormal] ;
+    [_btnSend addTarget:self action:@selector(pressSend) forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.view addSubview:_btnSend] ;
+    
+    _mTFTopicTitle = [[UITextField alloc] init] ;
+    _mTFTopicTitle.frame = CGRectMake(5, 55, 310, 40) ;
+    _mTFTopicTitle.placeholder = @"此刻的对作品的心情,评价......";
+    _mTFTopicTitle.borderStyle = UITextBorderStyleRoundedRect ;
+    [self.view addSubview:_mTFTopicTitle] ;
+    _mTFTopicTitle.delegate = self ;
+    
+    _mBtnAdd = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
+    
+    _mBtnAdd.frame = CGRectMake(250, 200, 60, 40) ;
+    [_mBtnAdd setTitle:@"添加作品" forState:UIControlStateNormal] ;
+    [_mBtnAdd addTarget:self action:@selector(pressAdd) forControlEvents:UIControlEventTouchUpInside] ;
+    _mBtnAdd.hidden = YES ;
+    [_mSV addSubview:_mBtnAdd] ;
+    
+    UIImageView* iView = [[UIImageView alloc] init] ;
+    
+    CGSize sizeImage  ;
+    
+    float fRatio = _mMainImage.size.width / 600 ;
+    
+    sizeImage.width = _mMainImage.size.width / fRatio ;
+    sizeImage.height = _mMainImage.size.height / fRatio ;
+    
+    iView.frame = CGRectMake(7, 5, sizeImage.width/2, sizeImage.height/2) ;
+    iView.image = _mMainImage ;
+    iView.tag = 101 ;
+    
+    _mSV.backgroundColor = [UIColor blackColor] ;
+    
+    _mSV.contentSize = CGSizeMake(314, sizeImage.height/2+10) ;
+    
+    if (sizeImage.height/2+10<_mSV.frame.size.height)
+    {
+        _mSV.frame = CGRectMake(3, 102, 314, sizeImage.height/2+10+40) ;
+        iView.frame = CGRectMake(7, 5+20, sizeImage.width/2, sizeImage.height/2) ;
+    }
+    [_mSV addSubview:iView] ;
+    //[self saveImage:_mMainImage] ;
+    
+    
+    CGRect sFrame = [UIScreen mainScreen].bounds ;
+    
+    _mLoadingView = [[LeoLoadingView alloc] initWithFrame:CGRectMake(sFrame.size.width/2-40, sFrame.size.height/2-40, 80, 80)] ;
+    [self.view addSubview:_mLoadingView] ;
+}
+
 -(void) pressSend
 {
     
@@ -254,7 +346,7 @@
             
             if ([strID isEqualToString:@"YES"])
             {
-                 UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您现在的网络网络不是通过wifi连接的.\n当前设置只能通过wifi网络上传作品!\n您可以通过我的->设置 更改网络设置." delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
+                UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您现在的网络网络不是通过wifi连接的.\n当前设置只能通过wifi网络上传作品!\n您可以通过我的->设置 更改网络设置." delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
                 [alv show] ;
             }
             else
@@ -272,57 +364,48 @@
             }
         }
     }
-
-
+    
 }
 
--(void) requestStarted:(ASIHTTPRequest *)request
+-(void) textFieldDidBeginEditing:(UITextField *)textField
 {
-    NSLog(@"asi start!") ;
+    _mSV.scrollEnabled = NO ;
 }
 
--(void) requestFailed:(ASIHTTPRequest *)request
+-(void) textFieldDidEndEditing:(UITextField *)textField
 {
-    NSLog(@"failed !");
-    
-    NSLog(@"dicFailed = %@",request.responseStatusMessage) ;
-    
-    UIAlertView* alv = [[UIAlertView alloc] initWithTitle:@"提示" message:@"由于网络问题，发表作品失败!\n请确认网络正常后重新发送!" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil] ;
-    
-    [alv show] ;
-    
-    self.view.alpha = 1.0;
-    _btnSend.enabled = YES ;
-    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
-    
-    btnBack.enabled = YES ;
-    
-    [_mLoadingView showView:NO] ;
+    _mSV.scrollEnabled = YES ;
 }
 
--(void) requestFinished:(ASIHTTPRequest *)request
+-(void) tapOneSV:(UIGestureRecognizer*) tapOne
 {
-    NSLog(@"asi finished!") ;
-    
-    if (_mPC) {
-        _mPC.mIsNeedUpdate = YES ;
+    [_mTFTopicTitle resignFirstResponder] ;
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_mTFTopicTitle resignFirstResponder] ;
+}
+
+//选择手机使用网路情况
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
+    if (buttonIndex == 0)
+    {
+        NSLog(@"111");
+        
+        [self uploadTopicToServer] ;
+        [ud setObject:@"NO" forKey:@"OnlyWifiPost"] ;
     }
-
-    NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingMutableContainers error:nil] ;
-    
-    NSLog(@"dic = %@",dic) ;
-
-    
-    self.view.alpha = 1.0;
-    [_mLoadingView showView:NO] ;
-    _btnSend.enabled = YES ;
-    UIButton* btnBack = (UIButton*)[self.view viewWithTag:3001] ;
-    btnBack.enabled = YES ;
-
-    //可以在此做数据缓存
-    [self dismissViewControllerAnimated:YES completion:nil];
-
+    else if (buttonIndex == 1)
+    {
+        
+        
+        [ud setObject:@"YES" forKey:@"OnlyWifiPost"] ;
+    }
 }
+
 
 -(NSString*) getDocImagePath
 {

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C2E622B1A04C67700804A70 /* CDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2E622A1A04C67700804A70 /* CDManager.m */; };
+		7C2E622D1A04C9CF00804A70 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2E622C1A04C9CF00804A70 /* CoreData.framework */; };
+		7C2E62301A04CAAA00804A70 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C2E622E1A04CAAA00804A70 /* CoreData.xcdatamodeld */; };
+		7C2E62331A04D72800804A70 /* PictureListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2E62321A04D72800804A70 /* PictureListModel.m */; };
 		7CA9C1391A00E1BC00EDA651 /* LeoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9C1381A00E1BC00EDA651 /* LeoLoadingView.m */; };
 		7CA9C13C1A0116AD00EDA651 /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9C13B1A0116AD00EDA651 /* VCSetting.m */; };
 		BC02B25619888DD200E1E48E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02B25519888DD200E1E48E /* main.m */; };
@@ -49,7 +53,6 @@
 		D5D53D6019C5D652001307B6 /* MyImageDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D53D5C19C5D652001307B6 /* MyImageDownload.m */; };
 		D5D53D6119C5D652001307B6 /* NetDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D53D5E19C5D652001307B6 /* NetDownload.m */; };
 		D5D53D6419C5D6C8001307B6 /* NSString+Hashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D53D6319C5D6C8001307B6 /* NSString+Hashing.m */; };
-		D5D53D6819C5DC20001307B6 /* PictureListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D53D6719C5DC20001307B6 /* PictureListModel.m */; };
 		D5D59E1219C5990700D7AA43 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D59DF919C5990700D7AA43 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D5D59E1319C5990700D7AA43 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D59DFC19C5990700D7AA43 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D5D59E1419C5990700D7AA43 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D59DFE19C5990700D7AA43 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -139,6 +142,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C2E62291A04C67700804A70 /* CDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDManager.h; path = DM/CDManager.h; sourceTree = "<group>"; };
+		7C2E622A1A04C67700804A70 /* CDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDManager.m; path = DM/CDManager.m; sourceTree = "<group>"; };
+		7C2E622C1A04C9CF00804A70 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7C2E622F1A04CAAA00804A70 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		7C2E62311A04D72800804A70 /* PictureListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureListModel.h; sourceTree = "<group>"; };
+		7C2E62321A04D72800804A70 /* PictureListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureListModel.m; sourceTree = "<group>"; };
+		7C2E62341A04DA6800804A70 /* iCartooniGame.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCartooniGame.pch; sourceTree = "<group>"; };
 		7CA9C1371A00E1BC00EDA651 /* LeoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeoLoadingView.h; sourceTree = "<group>"; };
 		7CA9C1381A00E1BC00EDA651 /* LeoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeoLoadingView.m; sourceTree = "<group>"; };
 		7CA9C13A1A0116AD00EDA651 /* VCSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSetting.h; sourceTree = "<group>"; };
@@ -210,8 +220,6 @@
 		D5D53D5E19C5D652001307B6 /* NetDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetDownload.m; path = Net/NetDownload.m; sourceTree = "<group>"; };
 		D5D53D6219C5D6C8001307B6 /* NSString+Hashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Hashing.h"; path = "Net/NSString+Hashing.h"; sourceTree = "<group>"; };
 		D5D53D6319C5D6C8001307B6 /* NSString+Hashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Hashing.m"; path = "Net/NSString+Hashing.m"; sourceTree = "<group>"; };
-		D5D53D6619C5DC20001307B6 /* PictureListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PictureListModel.h; path = DM/PictureListModel.h; sourceTree = "<group>"; };
-		D5D53D6719C5DC20001307B6 /* PictureListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PictureListModel.m; path = DM/PictureListModel.m; sourceTree = "<group>"; };
 		D5D59DF819C5990700D7AA43 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		D5D59DF919C5990700D7AA43 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		D5D59DFA19C5990700D7AA43 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -247,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C2E622D1A04C9CF00804A70 /* CoreData.framework in Frameworks */,
 				BC9C616F19D9455D00CFCB3C /* libz.1.1.3.dylib in Frameworks */,
 				BC9C616E19D9455100CFCB3C /* CFNetwork.framework in Frameworks */,
 				D5D59E2119C5C5EC00D7AA43 /* SystemConfiguration.framework in Frameworks */,
@@ -276,6 +285,7 @@
 		BC02B24719888DD200E1E48E = {
 			isa = PBXGroup;
 			children = (
+				7C2E622C1A04C9CF00804A70 /* CoreData.framework */,
 				BC0DD6A819C98C7200CC77F9 /* VC */,
 				D5D53D6519C5DBF6001307B6 /* DM */,
 				D5D53D5819C5D61E001307B6 /* Net */,
@@ -311,6 +321,7 @@
 		BC02B25319888DD200E1E48E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7C2E62341A04DA6800804A70 /* iCartooniGame.pch */,
 				D5D59E2219C5C5FC00D7AA43 /* CFNetwork.framework */,
 				D5D59E2019C5C5EC00D7AA43 /* SystemConfiguration.framework */,
 				D5D59E1E19C5C5E400D7AA43 /* MobileCoreServices.framework */,
@@ -431,8 +442,11 @@
 		D5D53D6519C5DBF6001307B6 /* DM */ = {
 			isa = PBXGroup;
 			children = (
-				D5D53D6619C5DC20001307B6 /* PictureListModel.h */,
-				D5D53D6719C5DC20001307B6 /* PictureListModel.m */,
+				7C2E62291A04C67700804A70 /* CDManager.h */,
+				7C2E622A1A04C67700804A70 /* CDManager.m */,
+				7C2E622E1A04CAAA00804A70 /* CoreData.xcdatamodeld */,
+				7C2E62311A04D72800804A70 /* PictureListModel.h */,
+				7C2E62321A04D72800804A70 /* PictureListModel.m */,
 			);
 			name = DM;
 			sourceTree = "<group>";
@@ -621,6 +635,7 @@
 			files = (
 				BC0DD6C119C98C7200CC77F9 /* VCPictureTopicScrollShow.m in Sources */,
 				BC0DD68619C98BB000CC77F9 /* CommentCell.m in Sources */,
+				7C2E622B1A04C67700804A70 /* CDManager.m in Sources */,
 				D5D59E1219C5990700D7AA43 /* ASIAuthenticationDialog.m in Sources */,
 				BC0DD6BD19C98C7200CC77F9 /* VCDiscovery.m in Sources */,
 				BC0DD68A19C98BB000CC77F9 /* RecomendArtCell.m in Sources */,
@@ -632,6 +647,7 @@
 				BC0DD68C19C98BB000CC77F9 /* TopicImageCell.m in Sources */,
 				D5D59E1919C5990700D7AA43 /* ASINetworkQueue.m in Sources */,
 				D5D59E1719C5990700D7AA43 /* ASIHTTPRequest.m in Sources */,
+				7C2E62331A04D72800804A70 /* PictureListModel.m in Sources */,
 				BC0DD6D619C9913600CC77F9 /* CheckBox.m in Sources */,
 				BC0DD6C019C98C7200CC77F9 /* VCPictureList.m in Sources */,
 				BC0DD6C319C98C7200CC77F9 /* VCTopicPictureComment.m in Sources */,
@@ -647,13 +663,13 @@
 				BC0DD6BC19C98C7200CC77F9 /* VCCategory.m in Sources */,
 				BC02B25919888DD200E1E48E /* AppDelegate.m in Sources */,
 				BC0DD6BF19C98C7200CC77F9 /* VCMore.m in Sources */,
+				7C2E62301A04CAAA00804A70 /* CoreData.xcdatamodeld in Sources */,
 				D5D59E1619C5990700D7AA43 /* ASIFormDataRequest.m in Sources */,
 				D5D53D5F19C5D652001307B6 /* ImageDownload.m in Sources */,
 				BC0DD6C219C98C7200CC77F9 /* VCRecomendArt.m in Sources */,
 				BC9B6A9F19D65B8000C9684C /* VCPostWarn.m in Sources */,
 				D5D59E1819C5990700D7AA43 /* ASIInputStream.m in Sources */,
 				BC02B25619888DD200E1E48E /* main.m in Sources */,
-				D5D53D6819C5DC20001307B6 /* PictureListModel.m in Sources */,
 				BC0DD68819C98BB000CC77F9 /* PictureListCell.m in Sources */,
 				BC1FEBB819D7F01B008EFD2A /* VCDeleteTopic.m in Sources */,
 			);
@@ -900,6 +916,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7C2E622E1A04CAAA00804A70 /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7C2E622F1A04CAAA00804A70 /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 7C2E622F1A04CAAA00804A70 /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BC02B24819888DD200E1E48E /* Project object */;
 }

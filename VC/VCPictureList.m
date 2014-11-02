@@ -22,6 +22,9 @@
 #import "VCPostWarn.h"
 #import "Reachability.h"
 #import "ASIDownloadCache.h"
+#import "CDManager.h"
+
+#define NUMBER_OF_TOPIC_ONCE_UPDATE 5
 
 @interface VCPictureList ()
 
@@ -41,19 +44,80 @@
 -(void)  refreshUI
 {
     [_tableView scrollRectToVisible:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) animated:NO] ;
+    
     //[_arrayData removeAllObjects] ;
     //[_tableView reloadData] ;
+}
+
+-(void) setCategoryID:(NSUInteger)categoryID
+{
+    if (_categoryID != categoryID)
+    {
+        _mIsNeedUpdate = YES;
+        _categoryID = categoryID ;
+    }
+    else if (_arrayData.count != 0)
+    {
+        _mIsNeedUpdate = NO ;
+    }
+}
+
+-(void) loadData
+{
+    
+//    [_arrayData removeAllObjects] ;
+//    CDManager* cdm = [CDManager getSingleton] ;
+////
+//    [cdm.managedObjectContext deletedObjects] ;
+    
+
+    if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kNotReachable)
+    {
+        [_arrayData removeAllObjects] ;
+        CDManager* cdm = [CDManager getSingleton] ;
+        
+        NSArray* arrayTopicModel = [cdm fetchTopicModelByCat:[NSString stringWithFormat:@"%ld",self.categoryID]] ;
+        
+        [_arrayData addObjectsFromArray:arrayTopicModel] ;
+        
+        for (PictureListModel* pm in _arrayData)
+        {
+            NSString* strURL = [NSString stringWithFormat:@"%@%@%@",@"http://121.40.93.230/appCATM/",pm.mImagePath,@"_small"];
+            
+            MyImageDownload* di = [[MyImageDownload alloc] init] ;
+            di.delegate = self ;
+            [di downloadImage:strURL tag:[pm.mTID intValue] ID:pm.mTID];
+            
+            [_arrayImageDownload addObject:di] ;
+        }
+        
+        if (arrayTopicModel.count < NUMBER_OF_TOPIC_ONCE_UPDATE)
+        {
+            UILabel* label = (UILabel*)_tableView.tableFooterView ;
+            label.text = @"暂无更多内容";
+            label.textColor = [UIColor darkGrayColor];
+        }
+        else{
+            UILabel* label = (UILabel*)_tableView.tableFooterView ;
+            label.text = @"更多内容";
+            label.textColor = [UIColor purpleColor];
+        }
+        
+        [_tableView reloadData] ;
+    }
+    else
+    {
+        [self loadDataFromServer] ;
+    }
 }
 
 -(void) loadDataFromServer
 {
     
-   // NSLog(@"category = %d",_categoryID) ;
-    
-    NSString* strURL = [NSString stringWithFormat:@"http://121.40.93.230/appCATM/getLatestTopics.php?cat=%lu&number=30",(unsigned long)_categoryID] ;
+    NSString* strURL = [NSString stringWithFormat:@"http://121.40.93.230/appCATM/getLatestTopics.php?cat=%lu&number=%d",(unsigned long)_categoryID,NUMBER_OF_TOPIC_ONCE_UPDATE] ;
 
     ASIHTTPRequest* request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
-    //[request setDownloadCache:self.myCache];
+    [request setDownloadCache:self.myCache];
     
     //[request setRequestMethod:@"GET"] ;
     
@@ -118,32 +182,85 @@
 //        }
     }
 
+//    if (_arrayData.count != 0) {
+//        return ;
+//    }
     //更新数据
     if (tag == 1001)
     {
         [_arrayData removeAllObjects] ;
     }
     
+    
     for (NSDictionary* dicTopic in arrayT)
     {
-        PictureListModel* pm = [[PictureListModel alloc] init] ;
+        CDManager* cdm = [CDManager getSingleton] ;
         
-        pm.mAuthor = [dicTopic objectForKey:@"author"] ;
-        pm.mTitle = [dicTopic objectForKey:@"title"] ;
-        pm.mImagePath = [dicTopic objectForKey:@"imagepath"] ;
-        pm.mTID = [dicTopic objectForKey:@"id"] ;
-        pm.mIsFirstShowImage = YES ;
+        NSString* tid = [dicTopic objectForKey:@"id"] ;
+        BOOL isHaveTopicInCD = [PictureListModel isHaveTopic:tid] ;
+        PictureListModel* pm2 = (PictureListModel*)[PictureListModel getTopicByID:tid] ;
         
-        NSString* strURL = [NSString stringWithFormat:@"%@%@%@",@"http://121.40.93.230/appCATM/",pm.mImagePath,@"_small"];
+        if (isHaveTopicInCD  == YES)
+        {
+            [_arrayData addObject:pm2] ;
+            
+            MyImageDownload* di = [[MyImageDownload alloc] init] ;
+            di.delegate = self ;
+            
+            NSString* strURL = [NSString stringWithFormat:@"%@%@%@",@"http://121.40.93.230/appCATM/",pm2.mImagePath,@"_small"];
+            [di downloadImage:strURL tag:[pm2.mTID intValue] ID:pm2.mTID];
+            
+            [_arrayImageDownload addObject:di] ;
+            continue ;
+        }
+        else
+        {
+            PictureListModel* pm = [NSEntityDescription insertNewObjectForEntityForName:@"PictureListModel"
+                                                                 inManagedObjectContext:cdm.managedObjectContext]; ;
+            
+            pm.mAuthor = [dicTopic objectForKey:@"author"] ;
+            pm.mTitle = [dicTopic objectForKey:@"title"] ;
+            pm.mImagePath = [dicTopic objectForKey:@"imagepath"] ;
+            pm.mTID = [dicTopic objectForKey:@"id"] ;
+            pm.mIsFirstShowImage = [NSNumber numberWithBool:YES] ;
+            pm.mCatID = [dicTopic objectForKey:@"catID"];
+            NSLog(@"catID = %@",pm.mCatID) ;
+            
+            NSString* strURL = [NSString stringWithFormat:@"%@%@%@",@"http://121.40.93.230/appCATM/",pm.mImagePath,@"_small"];
+            
+            [_arrayData addObject:pm] ;
+            
+            MyImageDownload* di = [[MyImageDownload alloc] init] ;
+            di.delegate = self ;
+            [di downloadImage:strURL tag:[pm.mTID intValue] ID:pm.mTID];
+            
+            [_arrayImageDownload addObject:di] ;
+            
+           // if (isHaveTopicInCD == NO) {
+                [pm saveToCD] ;
+                
+           // }
+//            else
+//            {
+//                [cdm.managedObjectContext deleteObject:pm];
+//            }
+        }
         
-        [_arrayData addObject:pm] ;
-        
-        MyImageDownload* di = [[MyImageDownload alloc] init] ;
-        di.delegate = self ;
-        [di downloadImage:strURL tag:[pm.mTID intValue] ID:pm.mTID];
-        
-        [_arrayImageDownload addObject:di] ;
+
     }
+    [_tableView reloadData] ;
+    if (arrayT.count < NUMBER_OF_TOPIC_ONCE_UPDATE)
+    {
+        UILabel* label = (UILabel*)_tableView.tableFooterView ;
+        label.text = @"暂无更多内容";
+        label.textColor = [UIColor darkGrayColor];
+    }
+    else{
+        UILabel* label = (UILabel*)_tableView.tableFooterView ;
+        label.text = @"更多内容";
+        label.textColor = [UIColor purpleColor];
+    }
+
     
     if (_arrayData.count != 0)
     {
@@ -185,12 +302,12 @@
     [self.view addSubview:_tableView] ;
     
     UILabel* labelUpdate = [[UILabel alloc] init] ;
-    labelUpdate.frame = CGRectMake(0, 0, 320, 40) ;
+    labelUpdate.frame = CGRectMake(0, 0, 320, 100) ;
     labelUpdate.userInteractionEnabled = YES ;
     labelUpdate.textAlignment = NSTextAlignmentCenter ;
-    labelUpdate.font = [UIFont systemFontOfSize:17];
-    labelUpdate.text= @"更多";
-    labelUpdate.textColor = [UIColor blueColor] ;
+    labelUpdate.font = [UIFont systemFontOfSize:15];
+    labelUpdate.text= @"更多内容";
+    labelUpdate.textColor = [UIColor purpleColor] ;
     
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMore:)] ;
     
@@ -214,15 +331,6 @@
     //[self.myCache clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     
     _mIsNeedUpdate = YES ;
-}
-
--(void) viewDidAppear:(BOOL)animated
-{
-    if (_mIsNeedUpdate == YES)
-    {
-        [self loadDataFromServer] ;
-        _mIsNeedUpdate = NO ;
-    }
 }
 
 -(void) dealloc
@@ -253,15 +361,6 @@
     VCDeleteTopic* dTopic = [[VCDeleteTopic alloc] init] ;
     
     [self presentViewController:dTopic animated:YES completion:nil] ;
-    
-//    if ([_tableView isEditing] == NO) {
-//        [_tableView setEditing:YES] ;
-//        [_barDeleteItem setTitle:@"完成"];
-//    }
-//    else{
-//        [_tableView setEditing:NO] ;
-//        [_barDeleteItem setTitle:@"删除"];
-//    }
 
 }
 
@@ -299,7 +398,7 @@
 -(void) pressUpdate
 {
     NSLog(@"press 更新！");
-    [self loadDataFromServer] ;
+    //[self loadDataFromServer] ;
 }
 
 -(void) pressAddAct
@@ -448,23 +547,23 @@
     
     if (model.mImage != nil)
     {
-        NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
-        
-        NSNumber* num  = [ud objectForKey:model.mTID];
-        BOOL isFirstLoad = [num boolValue] ;
-        
-        NSLog(@"num = %d uid = %@",isFirstLoad,model.mTID);
+//        NSUserDefaults* ud = [NSUserDefaults standardUserDefaults] ;
+//        
+//        NSNumber* num  = [ud objectForKey:model.mTID];
+//        BOOL isFirstLoad = [num boolValue] ;
+//        
+//        NSLog(@"num = %d uid = %@",isFirstLoad,model.mTID);
         
         cell.mMainImage.image = model.mImage ;
-        if (isFirstLoad == NO)
-        {
-            [ud setObject:[NSNumber numberWithBool:YES] forKey:model.mTID] ;
-            cell.mMainImage.alpha = 0 ;
-            [UIView animateWithDuration:0.9 animations:^
-             {
-                 cell.mMainImage.alpha = 1 ;
-             }];
-        }
+//        if (isFirstLoad == NO)
+//        {
+//            [ud setObject:[NSNumber numberWithBool:YES] forKey:model.mTID] ;
+//            cell.mMainImage.alpha = 0 ;
+//            [UIView animateWithDuration:0.9 animations:^
+//             {
+//                 cell.mMainImage.alpha = 1 ;
+//             }];
+//        }
     }
     
 
@@ -556,6 +655,12 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    if (_mIsNeedUpdate == YES)
+    {
+        [self loadData] ;
+        _mIsNeedUpdate = NO ;
+    }
+    
     UIBarButtonItem* barAddItem =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(pressAddAct)] ;
     
     UIBarButtonItem* barUpdateItem =[[UIBarButtonItem alloc] initWithTitle:@"更新" style:UIBarButtonItemStylePlain target:self action:@selector(pressUpdate)] ;

@@ -33,4 +33,6 @@ UIAlertViewDelegate>
 
 @property (retain,nonatomic) LeoLoadingView* mLoadingView ;
 
+@property (retain,nonatomic) NSString*    mCurDeleteID ;
+
 @end

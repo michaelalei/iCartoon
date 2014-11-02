@@ -45,5 +45,6 @@ ASIHTTPRequestDelegate>
 
 -(void)  loadDataFromServer ;
 -(void)  refreshUI ;
+-(void)  loadData ;
 
 @end

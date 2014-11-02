@@ -54,9 +54,10 @@
     NSString* strTitle = [dic objectForKey:@"group"] ;
     //pList.title = @"2D人物";
     _mPictureList.title = strTitle ;
-    _mPictureList.categoryID = 0 ;
     
     _mPictureList.view.backgroundColor = [UIColor blueColor];
+    _mPictureList.mIsNeedUpdate = YES ;
+    _mPictureList.categoryID = 0 ;
     [self.navigationController pushViewController:_mPictureList animated:YES] ;
     
 }
@@ -104,9 +105,6 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    _mPictureList.mIsNeedUpdate = YES ;
-    _mPictureList.categoryID = 0 ;
     [_mPictureList refreshUI] ;
     
     NSDictionary* dic = [_arrayData objectAtIndex:indexPath.section] ;
@@ -124,7 +122,7 @@
     }
     else
     {
-
+        _mPictureList.categoryID = 0;
         for (int i = 0 ; i < indexPath.section; i++)
         {
             NSDictionary* dic = [_arrayData objectAtIndex:i] ;
